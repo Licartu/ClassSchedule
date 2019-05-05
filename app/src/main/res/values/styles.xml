@@ -4,8 +4,23 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <!--<style name="theme_fullScreen" parent="AppTheme">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--&lt;!&ndash; 设置无标题 &ndash;&gt;-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--&lt;!&ndash;<span style="white-space:pre"></span>&ndash;&gt;-->
+        <!--<item name="android:typeface">monospace</item>-->
 
+    <!--</style>-->
+    <!--下划线式输入框-->
+    <style name="UnderLineEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/underlinecolor</item>
+        <item name="colorControlActivated">@color/underlinecolor</item>
+    </style>
 </resources>

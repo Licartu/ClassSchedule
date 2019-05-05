@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="coloractivity">#f4f4f4</color>
+    <!--下划线输入框平常颜色-->
+    <color name="underlinecolor">#878787</color>
+    <color name="line_gray">#000</color>
+
+    <color name="menu_gray">#8a8a8a</color>
+    <color name="menu_green">#45c01a</color>
+    <color name="iddd">#ff33b5e5</color>
 </resources>
