@@ -13,7 +13,9 @@ import android.os.Bundle;
  import android.widget.ImageView;
  import android.widget.TextView;
  import com.whut.classschedule.adapter.MainFragmentAdapter;
- import butterknife.BindView;
+import com.whut.classschedule.fragment.MyDialogFragment;
+
+import butterknife.BindView;
  import butterknife.ButterKnife;
 
 
@@ -84,5 +86,6 @@ public class MainActivity extends AppCompatActivity {
             @Override public void onTabReselected(TabLayout.Tab tab) { }
 
         });
+
     }
 }
