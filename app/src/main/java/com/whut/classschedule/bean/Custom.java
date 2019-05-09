@@ -1,4 +1,5 @@
 package com.whut.classschedule.bean;
+
 import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;
@@ -6,22 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Lenovo on 2019/5/6.
+ * Created by Lenovo on 2019/5/9.
  */
 
-public class Course extends LitePalSupport implements Serializable{
-    /*day:周几上课
-* startWeek:起始周
-* endWeek:结束周
-* classTime上课时间
-* hour：课时
-* tool：带的文具
-* singleOrDouble:单双周，0为不区分，1为单周，2为双周
-* */
+public class Custom extends LitePalSupport implements Serializable {
     private int Id;
     private String className;
-    private Teacher teacher;
-    private Classroom classroom;
+    private String teacherName;
+    private String classroom;
     private int day;
     private int startWeek;
     private int endWeek;
@@ -31,8 +24,7 @@ public class Course extends LitePalSupport implements Serializable{
     private int singleOrDouble;
     private List<Student> studentList=new ArrayList<>();
 
-    public Course() {
-
+    public Custom() {
     }
 
     public int getId() {
@@ -43,6 +35,7 @@ public class Course extends LitePalSupport implements Serializable{
         Id = id;
     }
 
+    @Override
     public String getClassName() {
         return className;
     }
@@ -51,19 +44,19 @@ public class Course extends LitePalSupport implements Serializable{
         this.className = className;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public String getTeacherName() {
+        return teacherName;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
-    public Classroom getClassroom() {
+    public String getClassroom() {
         return classroom;
     }
 
-    public void setClassroom(Classroom classroom) {
+    public void setClassroom(String classroom) {
         this.classroom = classroom;
     }
 

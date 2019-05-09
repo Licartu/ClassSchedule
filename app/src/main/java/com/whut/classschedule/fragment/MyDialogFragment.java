@@ -1,9 +1,11 @@
 package com.whut.classschedule.fragment;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -19,6 +21,8 @@ import android.widget.TextView;
 
 import com.whut.classschedule.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -26,6 +30,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
     private View rootView;
     private String courseName,teacherName,weekTime,classTime,classRoom;
+    private int classId,courseViewId;
     public MyDialogFragment() {
         // Required empty public constructor
     }
@@ -50,16 +55,20 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
         weekTime=bundle.getString("weektime");
         classTime=bundle.getString("classtime");
         classRoom=bundle.getString("classroom");
+        classId=bundle.getInt("classid");
+        courseViewId=bundle.getInt("courseviewid");
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_my_dialog, null);
-        Button button=rootView.findViewById(R.id.bt_delete);
+        Button bt_delete=rootView.findViewById(R.id.bt_delete);
+        Button bt_cancel=rootView.findViewById(R.id.bt_cancel);
         TextView tv1=(TextView) rootView.findViewById(R.id.tv_class);
         TextView tv2=rootView.findViewById(R.id.tv_teacher);
         TextView tv3=rootView.findViewById(R.id.tv_week);
@@ -72,21 +81,24 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
         tv4.setText(classTime);
         tv5.setText(classRoom);
 
-
-        button.setOnClickListener(new View.OnClickListener() {
+//删除课程
+        bt_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft=getFragmentManager().beginTransaction();
-//                ft.remove(this);
-                ft.addToBackStack(null);
-                new OtherDialogFragment().show(getFragmentManager(), "delete_sure");
+                setData(String.valueOf(courseViewId),String.valueOf(classId));
+
             }
         });
-
+//取消返回
+        bt_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDialog().dismiss();
+            }
+        });
         return rootView;
-
     }
-    public static MyDialogFragment newInstance(String courseName,String teacherName,String weekTime,String classTime,String classroom){
+    public static MyDialogFragment newInstance(String courseName,String teacherName,String weekTime,String classTime,String classroom,int classId,int courseViewId){
         MyDialogFragment fragment=new MyDialogFragment();
         Bundle bundle=new Bundle();
         bundle.putString("coursename",courseName);
@@ -94,8 +106,22 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
         bundle.putString("weektime",weekTime);
         bundle.putString("classtime",classTime);
         bundle.putString("classroom",classroom);
+        bundle.putInt("classid",classId);
+        bundle.putInt("courseviewid",courseViewId);
         fragment.setArguments(bundle);
         return fragment;
+    }
+    protected void setData(String courseViewId,String classId) {
+        if(getTargetFragment()==null)
+        {
+            return ;
+        }
+        Intent intent=new Intent();
+        intent.putExtra("courseviewid",courseViewId);
+        intent.putExtra("classid",classId);
+        //获得目标Fragment,并将数据通过onActivityResult放入到intent中进行传值
+        getTargetFragment().onActivityResult(ClassFragment.REUEST_CODDE, Activity.RESULT_OK, intent);
+
     }
 
 }

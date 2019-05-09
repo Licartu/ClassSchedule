@@ -1,9 +1,8 @@
 package com.whut.classschedule.fragment;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.whut.classschedule.R;
+
+import com.whut.classschedule.bean.Classroom;
 import com.whut.classschedule.bean.Course;
 import com.whut.classschedule.bean.Student;
+import com.whut.classschedule.bean.Teacher;
+
 
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
@@ -29,6 +33,8 @@ import java.util.List;
  */
 
 public class ClassFragment extends Fragment {
+
+    protected static final int REUEST_CODDE = 0;
     private SQLiteDatabase db;
     //星期几
     private RelativeLayout day;
@@ -36,9 +42,18 @@ public class ClassFragment extends Fragment {
     public ClassFragment(){
 
     }
+//    @Override
+//    public void oncreate(Bundle savedInstanceState){
+//        super.onCreate(savedInstanceState);
+//        //注册广播
+//        registerReceiver();
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_class, container, false);
+
     }
 
     @Override
@@ -79,9 +94,7 @@ public class ClassFragment extends Fragment {
             }
             day = getView().findViewById(dayId);
 
-//            int height;
-//            final View v=LayoutInflater.from(getActivity()).inflate(R.layout.course_card,null); //加载单个课程布局
-//            v.setY(height*course.getClassTime()-1);
+
             Thread thread=new Thread(
                     new Runnable() {
                         @Override
@@ -104,15 +117,20 @@ public class ClassFragment extends Fragment {
                                             TextView text = v.findViewById(R.id.text_view);
                                             text.setText(course.getClassName()+"\n"+course.getClassroom().getName());//显示课程信息
                                             day.addView(v);
+                                            int vid=v.getId();
 
                                             //设置点击监听
                                             v.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     int endTime = course.getClassTime() + (course.getHour() - 1);
+                                                    int vid=v.getId();
                                                     MyDialogFragment myDialogFragment = MyDialogFragment.newInstance(course.getClassName(), course.getTeacher().getTeacherName(),
-                                                            "第" + course.getStartWeek() + "-" + course.getEndWeek() + "周", "第" + course.getClassTime() + "-" + endTime + "节", course.getClassroom().getName());
+                                                            "第" + course.getStartWeek() + "-" + course.getEndWeek() + "周", "第" + course.getClassTime() + "-" + endTime + "节", course.getClassroom().getName(),course.getId(),vid);
+                                                    myDialogFragment.setTargetFragment(ClassFragment.this,REUEST_CODDE);
                                                     myDialogFragment.show(getFragmentManager(), "course");
+
+
                                                 }
                                             });
                                         }
@@ -130,7 +148,45 @@ public class ClassFragment extends Fragment {
             v.setVisibility(View.GONE);//先隐藏
             day.removeView(v);//再移除课程视图
             LitePal.delete(Course.class,course_id);
+        Toast.makeText(getActivity(),"课程已删除",Toast.LENGTH_LONG).show();
 
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==REUEST_CODDE){
+            try {
+                int viewId=Integer.parseInt(data.getStringExtra("courseviewid"));
+                int courseId=Integer.parseInt(data.getStringExtra("classid"));
+                deleteCourse(getView().findViewById(viewId),courseId);
+            } catch (NumberFormatException e) {
+
+                e.printStackTrace();
+
+            }
+
+        }
+    }
+//保存数据到数据库
+    private void saveData(Student student,  String className, String teacherName,String classroom,int day,int startWeek,
+                          int endWeek,int classTime,int hour,String tool,int singleOrDouble){
+        Course course=new Course();
+        course.setClassName(className);
+        course.getTeacher().setTeacherName(teacherName);
+        course.getClassroom().setName(className);
+        course.setDay(day);
+        course.setStartWeek(startWeek);
+        course.setEndWeek(endWeek);
+        course.setClassTime(classTime);
+        course.setHour(hour);
+        course.setTool(tool);
+        course.setSingleOrDouble(singleOrDouble);
+        course.save();
+        List<Course> courseList=student.getCourseList();
+        courseList.add(course);
+        student.save();
+    }
+
+
 }

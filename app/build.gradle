@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.whut.classschedule"
-        minSdkVersion 20
+        minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -31,4 +31,5 @@ dependencies {
     implementation 'com.android.support:design:26.0.0-beta1'
     implementation 'com.android.support:cardview-v7:26.0.0-beta1'
     implementation 'org.litepal.android:core:2.0.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }
