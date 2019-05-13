@@ -11,16 +11,16 @@ import java.util.List;
  */
 
 public class Classroom  extends LitePalSupport implements Serializable{
-    private int Id;
+    private int id;
     private String name;
     private List<Course> courseList=new ArrayList<>();
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
@@ -39,10 +39,6 @@ public class Classroom  extends LitePalSupport implements Serializable{
         this.courseList = courseList;
     }
 
-    public Classroom(int id, String name, List<Course> courseList) {
-
-        Id = id;
-        this.name = name;
-        this.courseList = courseList;
+    public Classroom() {
     }
 }

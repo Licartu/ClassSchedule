@@ -18,8 +18,8 @@ public class Course extends LitePalSupport implements Serializable{
 * tool：带的文具
 * singleOrDouble:单双周，0为不区分，1为单周，2为双周
 * */
-    private int Id;
-    private String className;
+    private int id;
+    private String courseName;
     private Teacher teacher;
     private Classroom classroom;
     private int day;
@@ -36,19 +36,19 @@ public class Course extends LitePalSupport implements Serializable{
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getClassName() {
-        return className;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
     public Teacher getTeacher() {

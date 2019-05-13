@@ -1,9 +1,12 @@
 package com.whut.classschedule.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.whut.classschedule.MainActivity;
 import com.whut.classschedule.R;
 
 import com.whut.classschedule.bean.Classroom;
@@ -35,19 +39,20 @@ import java.util.List;
 public class ClassFragment extends Fragment {
 
     protected static final int REUEST_CODDE = 0;
-    private SQLiteDatabase db;
     //星期几
     private RelativeLayout day;
     private Student student;
     public ClassFragment(){
 
     }
-//    @Override
-//    public void oncreate(Bundle savedInstanceState){
-//        super.onCreate(savedInstanceState);
-//        //注册广播
-//        registerReceiver();
-//    }
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        student=((MainActivity)context).getStudent();
+
+        Log.e("收到",student.getStudentName()+student.getCourse().get(0).getCourseName());
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,15 +64,12 @@ public class ClassFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-
-        //LitePal 获取实例
-        db = Connector.getDatabase();
         loadData(student);
     }
     //从数据库中取数据
     private void loadData(Student student) {
         //课程列表
-        List<Course> coursesList=student.getCourseList();
+        List<Course> coursesList=student.getCourse();
 
         //使用从数据库读取出来的课程信息来加载课程表视图
         for (Course course:coursesList){
@@ -95,12 +97,12 @@ public class ClassFragment extends Fragment {
             day = getView().findViewById(dayId);
 
 
-            Thread thread=new Thread(
+            new Thread(
                     new Runnable() {
                         @Override
                         public void run() {
                             try {
-                                Thread.sleep(100);
+                                Thread.sleep(1000);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -109,15 +111,16 @@ public class ClassFragment extends Fragment {
                                         @Override
                                         public void run() {
                                             int height=day.getHeight();
-                                            final View v = LayoutInflater.from(getActivity()).inflate(R.layout.course_card, null); //加载单个课程布局
+                                             View v = LayoutInflater.from(getActivity()).inflate(R.layout.course_card, null); //加载单个课程布局
                                             v.setY(height*(course.getClassTime()-1));//设置开始高度,即第几节课开始
                                             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
                                                     (ViewGroup.LayoutParams.MATCH_PARENT,course.getHour()*height - 8); //设置布局高度,即跨多少节课
                                             v.setLayoutParams(params);
                                             TextView text = v.findViewById(R.id.text_view);
-                                            text.setText(course.getClassName()+"\n"+course.getClassroom().getName());//显示课程信息
+                                            String classroomName=LitePal.find(Course.class,course.getId(),true).getClassroom().getName();
+                                            text.setText(course.getCourseName()+"\n"+classroomName);//显示课程信息
                                             day.addView(v);
-                                            int vid=v.getId();
+
 
                                             //设置点击监听
                                             v.setOnClickListener(new View.OnClickListener() {
@@ -125,8 +128,8 @@ public class ClassFragment extends Fragment {
                                                 public void onClick(View v) {
                                                     int endTime = course.getClassTime() + (course.getHour() - 1);
                                                     int vid=v.getId();
-                                                    MyDialogFragment myDialogFragment = MyDialogFragment.newInstance(course.getClassName(), course.getTeacher().getTeacherName(),
-                                                            "第" + course.getStartWeek() + "-" + course.getEndWeek() + "周", "第" + course.getClassTime() + "-" + endTime + "节", course.getClassroom().getName(),course.getId(),vid);
+                                                    MyDialogFragment myDialogFragment = MyDialogFragment.newInstance(course.getCourseName(), LitePal.find(Course.class,course.getId(),true).getTeacher().getTeacherName(),
+                                                            "第" + course.getStartWeek() + "-" + course.getEndWeek() + "周", "第" + course.getClassTime() + "-" + endTime + "节", LitePal.find(Course.class,course.getId(),true).getClassroom().getName(),course.getId(),vid);
                                                     myDialogFragment.setTargetFragment(ClassFragment.this,REUEST_CODDE);
                                                     myDialogFragment.show(getFragmentManager(), "course");
 
@@ -138,7 +141,7 @@ public class ClassFragment extends Fragment {
                             );
                         }
                     }
-            );
+            ).start();
 
 
         }
@@ -172,7 +175,7 @@ public class ClassFragment extends Fragment {
     private void saveData(Student student,  String className, String teacherName,String classroom,int day,int startWeek,
                           int endWeek,int classTime,int hour,String tool,int singleOrDouble){
         Course course=new Course();
-        course.setClassName(className);
+        course.setCourseName(className);
         course.getTeacher().setTeacherName(teacherName);
         course.getClassroom().setName(className);
         course.setDay(day);

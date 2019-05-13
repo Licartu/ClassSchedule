@@ -11,8 +11,8 @@ import java.util.List;
  */
 
 public class Custom extends LitePalSupport implements Serializable {
-    private int Id;
-    private String className;
+    private int id;
+    private String customName;
     private String teacherName;
     private String classroom;
     private int day;
@@ -22,26 +22,26 @@ public class Custom extends LitePalSupport implements Serializable {
     private int hour;
     private String tool;
     private int singleOrDouble;
-    private List<Student> studentList=new ArrayList<>();
+    private Student student;
 
     public Custom() {
+
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    @Override
-    public String getClassName() {
-        return className;
+    public String getCustomName() {
+        return customName;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setCustomName(String customName) {
+        this.customName = customName;
     }
 
     public String getTeacherName() {
@@ -116,11 +116,11 @@ public class Custom extends LitePalSupport implements Serializable {
         this.singleOrDouble = singleOrDouble;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

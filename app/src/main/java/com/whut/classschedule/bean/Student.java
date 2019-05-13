@@ -12,27 +12,44 @@ import java.util.List;
  */
 
 public class Student extends LitePalSupport implements Serializable {
-    private int Id;
+    private int id;
     private List<Course> courseList=new ArrayList<>();
+    private List<Custom> customList=new ArrayList<>();
     private String studentName;
     private String password;
     private String tel;
     private String email;
 
+
+    public List<Course>getCourse(){
+        return LitePal.find(Student.class,id,true).getCourseList();
+    }
+
+    public Student() {
+    }
+
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public List<Course> getCourseList() {
-        return LitePal.where("student_id=?",String.valueOf(Id)).find(Course.class);
+        return courseList;
     }
 
     public void setCourseList(List<Course> courseList) {
         this.courseList = courseList;
+    }
+
+    public List<Custom> getCustomList() {
+        return customList;
+    }
+
+    public void setCustomList(List<Custom> customList) {
+        this.customList = customList;
     }
 
     public String getStudentName() {
@@ -66,18 +83,4 @@ public class Student extends LitePalSupport implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Student(int id, List<Course> courseList, String studentName, String password, String tel, String email) {
-
-        Id = id;
-        this.courseList = courseList;
-        this.studentName = studentName;
-        this.password = password;
-        this.tel = tel;
-        this.email = email;
-    }
-
-
-
-
 }

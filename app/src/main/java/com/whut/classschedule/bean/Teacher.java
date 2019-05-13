@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public class Teacher extends LitePalSupport implements Serializable{
-    private int Id;
+    private int id;
     private String teacherName;
     private String tel;
     private String address;
@@ -18,11 +18,11 @@ public class Teacher extends LitePalSupport implements Serializable{
     private List<Course> courseList=new ArrayList<>();
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getTeacherName() {
@@ -65,13 +65,7 @@ public class Teacher extends LitePalSupport implements Serializable{
         this.courseList = courseList;
     }
 
-    public Teacher(int id, String teacherName, String tel, String address, String email, List<Course> courseList) {
+    public Teacher() {
 
-        Id = id;
-        this.teacherName = teacherName;
-        this.tel = tel;
-        this.address = address;
-        this.email = email;
-        this.courseList = courseList;
     }
 }
