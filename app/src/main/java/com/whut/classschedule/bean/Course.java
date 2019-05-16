@@ -1,4 +1,5 @@
 package com.whut.classschedule.bean;
+import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;
@@ -46,6 +47,7 @@ public class Course extends LitePalSupport implements Serializable{
     public String getCourseName() {
         return courseName;
     }
+
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;

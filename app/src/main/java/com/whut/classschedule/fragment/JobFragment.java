@@ -17,7 +17,7 @@ public class JobFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //R.layout.fragment_my为该fragment的布局
-        View view=inflater.inflate(R.layout.fragment_me,container,false);
+        View view=inflater.inflate(R.layout.fragment_job,container,false);
         return view;
     }
 

@@ -24,7 +24,19 @@ public class Student extends LitePalSupport implements Serializable {
     public List<Course>getCourse(){
         return LitePal.find(Student.class,id,true).getCourseList();
     }
+    public List<Course> getDayCourseList(int day){
+        List<Course> courseList=getCourse();
+        List<Course> dayCourseList=new ArrayList<>();
+        for (Course course:courseList){
+            if (course.getDay()==day)
+                dayCourseList.add(course);
+        }
+        return dayCourseList;
+    }
 
+    public List<Custom>getCustom(){
+        return LitePal.where("student_id=?",String.valueOf(id)).find(Custom.class);
+    }
     public Student() {
     }
 

@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddCourseActivity"></activity>
+        <activity android:name=".AddCustomActivity" />
+        <activity android:name=".MyInfoActivity" />
+        <activity android:name=".ChangePasswordActivity" />
+        <activity android:name=".MyExamActivity" />
+        <activity android:name=".ManageInforemActivity" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.whut.classschedule.bean;
 
+import org.litepal.annotation.Column;
 import org.litepal.crud.LitePalSupport;
 
 import java.io.Serializable;

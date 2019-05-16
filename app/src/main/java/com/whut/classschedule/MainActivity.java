@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -26,6 +27,7 @@ import butterknife.BindView;
 public class MainActivity extends AppCompatActivity {
 
     public static Student student;
+    public static FragmentPagerAdapter mPagerAdapter;
 
 
 
@@ -70,24 +72,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(bottomNavigationView.getMenu().getItem(0).getItemId());
 
 
-        //ViewPager的监听
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                //滑动页面后做的事，这里与BottomNavigationView结合，使其与正确page对应
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
 
         //底部导航栏有几项就有几个Fragment
         final ArrayList<Fragment> fgLists = new ArrayList<>(3);
@@ -96,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
         fgLists.add(new MeFragment());
 
         //设置适配器用于装载Fragment
-        FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private int mChildCount = 0;
             @Override
             public Fragment getItem(int position) {
                 return fgLists.get(position);  //得到Fragment
@@ -106,10 +92,49 @@ public class MainActivity extends AppCompatActivity {
             public int getCount() {
                 return fgLists.size();  //得到数量
             }
+            @Override
+
+            public void notifyDataSetChanged() {
+
+                mChildCount = getCount();
+
+                super.notifyDataSetChanged();
+
+            }
+            @Override
+            public int getItemPosition(Object object) {
+                if ( mChildCount > 0) {
+
+                    mChildCount --;
+
+                    return POSITION_NONE;
+
+                }
+
+                return super.getItemPosition(object);
+            }
         };
         viewPager.setAdapter(mPagerAdapter);   //设置适配器
         viewPager.setOffscreenPageLimit(2); //预加载剩下两页
+//ViewPager的监听
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mPagerAdapter.notifyDataSetChanged();
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                //滑动页面后做的事，这里与BottomNavigationView结合，使其与正确page对应
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         //以上就将Fragment装入了ViewPager
     }
     public Student getStudent(){
