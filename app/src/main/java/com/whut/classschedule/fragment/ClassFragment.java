@@ -3,13 +3,11 @@ package com.whut.classschedule.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -199,10 +197,10 @@ public class ClassFragment extends Fragment {
                                                     int endTime = Integer.parseInt(courseInfo.get(4)) + (Integer.parseInt(courseInfo.get(5)) - 1);
                                                     int vid=v.getId();
                                                     int courseFlag=1;//是course为1，是custom为0
-                                                    MyDialogFragment myDialogFragment = MyDialogFragment.newInstance(courseInfo.get(1), LitePal.find(Course.class,Integer.parseInt(courseInfo.get(0)),true).getTeacher().getTeacherName(),
+                                                    ClassDialogFragment classDialogFragment = ClassDialogFragment.newInstance(courseInfo.get(1), LitePal.find(Course.class,Integer.parseInt(courseInfo.get(0)),true).getTeacher().getTeacherName(),
                                                             "第" + courseInfo.get(2) + "-" + courseInfo.get(3) + "周", "第" + courseInfo.get(4) + "-" + endTime + "节", LitePal.find(Course.class,Integer.parseInt(courseInfo.get(0)),true).getClassroom().getName(),Integer.parseInt(courseInfo.get(0)),vid,courseFlag);
-//                                                    myDialogFragment.setTargetFragment(ClassFragment.this,REUEST_CODDE);
-                                                    myDialogFragment.show(getFragmentManager(), "course");
+//                                                    classDialogFragment.setTargetFragment(ClassFragment.this,REUEST_CODDE);
+                                                    classDialogFragment.show(getFragmentManager(), "course");
 
 
                                                 }
@@ -292,11 +290,11 @@ public class ClassFragment extends Fragment {
                                                     int vid=v.getId();
                                                     Log.e("vid",""+vid);
                                                     int courseFlag=0;
-                                                    MyDialogFragment myDialogFragment2 = MyDialogFragment.newInstance(customInfo.get(1), customInfo.get(7),
+                                                    ClassDialogFragment classDialogFragment2 = ClassDialogFragment.newInstance(customInfo.get(1), customInfo.get(7),
                                                             "第" + customInfo.get(2) + "-" + customInfo.get(3) + "周", "第" + customInfo.get(4)
                                                                     + "-" + endTime + "节",customInfo.get(6),Integer.parseInt(customInfo.get(0)),vid,courseFlag);
-                                                    myDialogFragment2.setTargetFragment(ClassFragment.this,REUEST_CODDE);
-                                                    myDialogFragment2.show(getFragmentManager(), "custom");
+                                                    classDialogFragment2.setTargetFragment(ClassFragment.this,REUEST_CODDE);
+                                                    classDialogFragment2.show(getFragmentManager(), "custom");
 
 
                                                 }

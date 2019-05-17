@@ -3,7 +3,7 @@ package com.whut.classschedule;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class HelpActivity extends AppCompatActivity {
+public class HelpActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

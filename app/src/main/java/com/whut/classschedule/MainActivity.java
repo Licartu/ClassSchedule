@@ -24,9 +24,7 @@ import butterknife.BindView;
  import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
-
-    public static Student student;
+public class MainActivity extends BaseActivity {
     public static FragmentPagerAdapter mPagerAdapter;
 
 

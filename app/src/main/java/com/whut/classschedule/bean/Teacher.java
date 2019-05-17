@@ -15,7 +15,17 @@ public class Teacher extends LitePalSupport implements Serializable{
     private String tel;
     private String address;
     private String email;
+    private String sex;
     private List<Course> courseList=new ArrayList<>();
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+
 
     public int getId() {
         return id;

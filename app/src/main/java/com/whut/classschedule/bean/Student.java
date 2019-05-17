@@ -19,10 +19,56 @@ public class Student extends LitePalSupport implements Serializable {
     private String password;
     private String tel;
     private String email;
+    private String type;
+    private String sex;
+    private int age;
+    private String major;
+    private String grade;
 
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
 
     public List<Course>getCourse(){
         return LitePal.find(Student.class,id,true).getCourseList();
+
     }
     public List<Course> getDayCourseList(int day){
         List<Course> courseList=getCourse();

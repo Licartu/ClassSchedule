@@ -20,10 +20,7 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
-public class AddCustomActivity extends AppCompatActivity {
-
-
-    private Student student;
+public class AddCustomActivity extends BaseActivity {
     private String className=null;
     private String teacherName=null;
     private String classroom=null;

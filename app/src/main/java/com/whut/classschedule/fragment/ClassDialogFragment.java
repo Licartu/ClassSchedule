@@ -3,13 +3,11 @@ package com.whut.classschedule.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.support.v4.app.FragmentTransaction;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,17 +20,15 @@ import android.widget.TextView;
 
 import com.whut.classschedule.R;
 
-import org.greenrobot.eventbus.EventBus;
-
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyDialogFragment extends android.support.v4.app.DialogFragment {
+public class ClassDialogFragment extends android.support.v4.app.DialogFragment {
 
     private View rootView;
     private String className,teacherName,weekTime,classTime,classRoom;
     private int classId,classViewId,courseFlag;
-    public MyDialogFragment() {
+    public ClassDialogFragment() {
         // Required empty public constructor
     }
     @Override
@@ -69,7 +65,7 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
 
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_my_dialog, null);
+        rootView = inflater.inflate(R.layout.fragment_class_dialog, null);
         Button btDelete=rootView.findViewById(R.id.bt_delete);
         Button btCancel=rootView.findViewById(R.id.bt_cancel);
         TextView tv1=rootView.findViewById(R.id.tv_class);
@@ -106,8 +102,8 @@ public class MyDialogFragment extends android.support.v4.app.DialogFragment {
         });
         return rootView;
     }
-    public static MyDialogFragment newInstance(String className,String teacherName,String weekTime,String classTime,String classroom,int classId,int classViewId,int courseFlag){
-        MyDialogFragment fragment=new MyDialogFragment();
+    public static ClassDialogFragment newInstance(String className, String teacherName, String weekTime, String classTime, String classroom, int classId, int classViewId, int courseFlag){
+        ClassDialogFragment fragment=new ClassDialogFragment();
         Bundle bundle=new Bundle();
         bundle.putString("classname",className);
         bundle.putString("teachername",teacherName);

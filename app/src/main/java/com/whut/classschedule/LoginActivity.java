@@ -19,8 +19,7 @@ import org.litepal.tablemanager.Connector;
 
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
-    static Student student;
+public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
