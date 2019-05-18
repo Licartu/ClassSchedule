@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="ClassSchedule" ></dbname>
-    <version value="7" ></version>
+    <version value="13" ></version>
     <list>
         <mapping class="com.whut.classschedule.bean.Classroom"></mapping>
         <mapping class="com.whut.classschedule.bean.Student"></mapping>
         <mapping class="com.whut.classschedule.bean.Teacher"></mapping>
         <mapping class="com.whut.classschedule.bean.Course"></mapping>
         <mapping class="com.whut.classschedule.bean.Custom"></mapping>
+        <mapping class="com.whut.classschedule.bean.Exam"></mapping>
+        <mapping class="com.whut.classschedule.bean.Job"></mapping>
     </list>
 </litepal>

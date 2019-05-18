@@ -33,4 +33,5 @@ dependencies {
     implementation 'org.litepal.android:core:2.0.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'com.android.support:recyclerview-v7:26.0.0-beta1'
 }

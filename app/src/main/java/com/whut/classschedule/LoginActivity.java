@@ -11,12 +11,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.whut.classschedule.bean.Course;
+import com.whut.classschedule.bean.Exam;
 import com.whut.classschedule.bean.Student;
 
 
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class LoginActivity extends BaseActivity {
@@ -25,7 +30,19 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         SQLiteDatabase db = Connector.getDatabase();
-
+//        String str="2019-6-20 19:00";
+//        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd hh:mm");
+//        try {
+//            Date birthday = sdf.parse(str);
+//            System.out.print(birthday);
+//            Exam exam=new Exam();
+//            exam.setAddress("新一101");
+//            exam.setTime(birthday);
+//            exam.setCourse(LitePal.find(Course.class,1));
+//            exam.save();
+//        } catch (ParseException e){
+//            Log.e("打印不出","b");
+//        }
 
         Button btn=findViewById(R.id.bt_login);
         btn.setOnClickListener(new View.OnClickListener() {

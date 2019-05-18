@@ -31,6 +31,15 @@ public class Course extends LitePalSupport implements Serializable{
     private String tool;
     private int singleOrDouble;
     private List<Student> studentList=new ArrayList<>();
+    private List<Job> jobList=new ArrayList<>();
+
+    public List<Job> getJobList() {
+        return jobList;
+    }
+
+    public void setJobList(List<Job> jobList) {
+        this.jobList = jobList;
+    }
 
     public Course() {
 
